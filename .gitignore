@@ -1,0 +1,20 @@
+# Node
+node_modules/
+.next/
+
+# Python
+__pycache__/
+*.pyc
+
+# Environment files
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Uploaded photos
+flashlab1/face_match_app/photos/
+
+# Logs
+npm-debug.log*
+
