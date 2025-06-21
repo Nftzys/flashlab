@@ -10,16 +10,16 @@ import uuid
 
 app = FastAPI()
 
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-UPLOAD_DIR = "photos"
-THRESHOLD = 0.6
+UPLOAD_DIR = os.getenv("UPLOAD_DIR", "photos")
+THRESHOLD = float(os.getenv("FACE_MATCH_THRESHOLD", "0.6"))
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 def get_album_path(album_id: str) -> str:
