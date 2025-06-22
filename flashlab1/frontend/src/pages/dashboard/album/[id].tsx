@@ -5,6 +5,8 @@ import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+
 export default function AlbumPage() {
   const router = useRouter()
   const { id: slug } = router.query
@@ -32,7 +34,7 @@ export default function AlbumPage() {
 
   const fetchPhotos = useCallback(async () => {
     try {
-      const response = await fetch(`http://localhost:8000/photos/${slug}`)
+      const response = await fetch(`${API_BASE}/photos/${slug}`)
       if (!response.ok) throw new Error('Failed to fetch photos')
       const data = await response.json()
       setPhotos(data.photos || [])
@@ -62,7 +64,7 @@ export default function AlbumPage() {
       formData.append('file', file)
       formData.append('album_id', slug as string)
 
-      const uploadRes = await fetch(`http://localhost:8000/add_to_db/?album_id=${slug}`, {
+      const uploadRes = await fetch(`${API_BASE}/add_to_db/?album_id=${slug}`, {
         method: 'POST',
         body: formData,
       })
@@ -138,8 +140,8 @@ export default function AlbumPage() {
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 w-full">
             {photos.map((filename, i) => (
               <div key={i} className="rounded-md overflow-hidden">
-                <Image
-                  src={`http://localhost:8000/photos/${slug}/${filename}`}
+                  <Image
+                    src={`${API_BASE}/photos/${slug}/${filename}`}
                   alt={`Photo ${i}`}
                   width={300}
                   height={300}

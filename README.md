@@ -27,7 +27,7 @@ pip install -r requirements.txt
 cd ../frontend
 NEXT_PUBLIC_SUPABASE_URL=http://example.com \
 NEXT_PUBLIC_SUPABASE_ANON_KEY=example \
-NEXT_PUBLIC_API_URL=http://localhost:8000 \
+NEXT_PUBLIC_API_URL=https://flashlab.pro \
 npm run build
 ```
 
