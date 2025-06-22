@@ -6,6 +6,8 @@ import { IncomingForm, File, Files, Fields } from 'formidable'
 import FormData from 'form-data'
 import fetch from 'node-fetch'
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+
 export const config = {
   api: {
     bodyParser: false,
@@ -53,7 +55,7 @@ export default async function handler(req: CustomNextApiRequest, res: NextApiRes
       const formData = new FormData()
       formData.append('file', fs.createReadStream(destPath), filename)
 
-      const fastApiUrl = `http://localhost:8000/add_to_db/?album_id=${albumId}`
+      const fastApiUrl = `${API_BASE}/add_to_db/?album_id=${albumId}`
       const faceRes = await fetch(fastApiUrl, {
         method: 'POST',
         body: formData,
